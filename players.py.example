@@ -1,0 +1,10 @@
+credentials = {'Player1':'difficult pwd',
+               'Player2':'weird word',
+               'Player3':'bananab'}
+
+server_ip = '192.168.10.200'
+server_port = 5000
+http_scheme = {'_external':True, '_scheme':'https'}
+#http_scheme = {}
+
+
