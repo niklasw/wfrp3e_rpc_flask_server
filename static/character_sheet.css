@@ -1,0 +1,110 @@
+    body {
+        font-family: "Lucida Console", "Courier New", monospace;
+        background-image: url('/static/img/wfrp_char_sheet.png');
+        background-repeat: no-repeat;
+        background-attachment: absolute;
+        background-position: left top; 
+    }
+    input[type="text"]{
+        background: transparent;
+        border: none;
+        padding: 0px;
+        margin: -1px;
+        color: black;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    #container {
+      position: absolute;
+      top 0;
+      left 0;
+      width: 1893px;
+      height: 1164px;
+      border: none;
+      overflow: auto;
+    }
+
+    #descriptfields {
+        left: 170px;
+        top: 122px;
+        position: absolute;
+        border: none;
+    }
+    input.descript {
+        background: transparent;
+        border: none;
+        margin-left: 0px;
+        margin-right: 50px;
+        width: 240px;
+        height: 25px;
+    }
+
+    #charfields {
+        left: 148px;
+        top: 280px;
+        position: absolute;
+        border: none;
+    }
+    input.chars{
+        font-size: 1em;
+        text-align: center;
+        width: 21px;
+        height: 32px;
+    }
+
+    #fatefields {
+        left: 505px;
+        top: 255px;
+        position: absolute;
+        border: none;
+    }
+    input.fate{
+        font-size: 1em;
+        text-align: center;
+        width: 21px;
+        height: 27px;
+    }
+
+    #basicskills1 {
+        left: 270px;
+        top: 443px;
+        position: absolute;
+        border: none;
+    }
+    #basicskills2 {
+        left: 535px;
+        top: 443px;
+        position: absolute;
+        border: none;
+    }
+    input.skill {
+        text-align: center;
+        width: 21px;
+        height: 24px;
+    }
+
+    input#save_button {
+      position:absolute;
+      left: 100px;
+      top: 50px;
+      padding: 20px;
+    }
+
+    #lrcorner {
+        position: absolute;
+        left: 1893;
+        top: 1164;
+    }
+
+

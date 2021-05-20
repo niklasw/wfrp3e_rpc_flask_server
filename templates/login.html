@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>WFRP-4e rpc enter</title>
+    <link rel="stylesheet" href="static/general.css"
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT&display=swap" rel="stylesheet">
+</head>
+
+<div id="login">
+  <h2>Select player</h2>
+  <form action="" method="post">
+    {% for player in players %}
+    <input type="radio" id="player" name="player" value="{{player}}">
+    <label for="player">{{player}}</label><br>
+    {% endfor %}
+    <input type="password" name="pwd" id="pwd"/>
+    <input type="submit" value="Sign in"/>
+  </form>
+</div>
+ 
+</form>
+
+</html>

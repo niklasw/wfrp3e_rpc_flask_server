@@ -1,0 +1,87 @@
+ <!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>WFRP-4e rpc sheet</title>
+    <link rel="stylesheet" href="/static/clear_defaults.css">
+    <link rel="stylesheet" href="/static/character_sheet.css">
+</head>
+
+<div id="container">
+  <a href="{{url_for('logoff')}}">Log off</a>
+
+<form action="{{url_for('handle_form', player=rpc.player)}}" method="post">
+    <fieldset id="descriptfields">
+      <input style="width: 310px;" class="descript" type="text" name="d_name" id="d_name" value="{{desc.get('name')}}"/>
+      <input style="width: 140px;" class="descript" type="text" name="d_specie" id="d_specie" value="{{desc.get('specie')}}"/>
+      <input style="width: 150px;" class="descript" type="text" name="d_class" id="d_class" value="{{desc.get('class')}}"/>
+      <br/>
+      <input style="width: 300px;" class="descript" type="text" name="d_career" id="d_career" value="{{desc.get('career')}}"/>
+      <input style="width: 250px; margin-left:50px" class="descript" type="text" name="d_level" id="d_level" value="{{desc.get('level')}}"/>
+      <br/>
+      <input style="width: 500px;" class="descript" type="text" name="d_path" id="d_path" value="{{desc.get('path')}}"/>
+      <input style="width: 150px;" class="descript" type="text" name="d_status" id="d_status" value="{{desc.get('status')}}"/>
+      <br/>
+      <input style="width: 150px;" class="descript" type="text" name="d_age" id="d_age" value="{{desc.get('age')}}"/>
+      <input style="width: 100px;" class="descript" type="text" name="d_height" id="d_height" value="{{desc.get('height')}}"/>
+      <input style="width: 120px;" class="descript" type="text" name="d_hair" id="d_hair" value="{{desc.get('hair')}}"/>
+      <input style="margin:0; width: 50px;" class="descript" type="text" name="d_eyes" id="d_eyes" value="{{desc.get('eyes')}}"/>
+    </fieldset>
+  
+  <fieldset id="charfields">
+    {% for item in characteristics %}
+      {% set outer_loop = loop %}
+        {% for key,val in item.items() %}
+            {% set name_ = key ~ '_' ~ outer_loop.index %}
+            {% if outer_loop.index == 3 %}
+                {% set readonly = 'readonly' %}
+            {% endif %}
+            <input class="chars" type="text" name="{{name_}}" pattern="[0-9]+"
+                                             id="{{name_}}"
+                                             value="{{val}}" {{readonly}}>
+        {% endfor %}
+      <br/>
+    {% endfor %}
+  </fieldset>
+
+  <fieldset id="fatefields">
+      <input class="fate" type="text" name="i_fate" id="i_fate" value="{{rpc.fate}}">
+      <br/>
+      <input class="fate" type="text" name="i_fortune" id="i_fortune" value="{{rpc.fortune}}">
+  </fieldset>
+
+  <fieldset id="basicskills1">
+    {% for skill in basic_skills[0:13] %}
+    {% set name_ = 'adv_' ~ skill.valid_name %}
+    <input class="skill" type="text" name="{{name_}}"
+                                     id="{{name_}}"
+                                     value="{{skill.adv}}">
+    {% set name_ = 'val_' ~ skill.valid_name %}
+    <input class="skill" type="text" name="{{name_}}"
+                                     id="{{name_}}"
+                                     value="{{skill.skill_value}}" readonly>
+    <br/>
+    {% endfor %}
+  </fieldset>
+
+  <fieldset id="basicskills2">
+    {% for skill in basic_skills[13:] %}
+    <input class="skill" type="text" name="adv_{{skill.valid_name}}"
+                                     id="adv_{{skill.valid_name}}"
+                                     value="{{skill.adv}}">
+    <input class="skill" type="text" name="val_{{skill.valid_name}}"
+                                     id="val_{{skill.valid_name}}"
+                                     value="{{skill.skill_value}}" readonly>
+    <br/>
+    {% endfor %}
+  </fieldset>
+
+  <input id="save_button" type="submit" value="Save"/>
+</form>
+
+
+  <div id="lrcorner">
+    .
+  </div>
+</div>
+
+</html>
