@@ -1,5 +1,6 @@
-# wfrp4e-flask-rpc-sheet
+# wfrp4e rpc-sheet served by flask
 Naive Flask app to handle rpc sheets for eager rollplayers.
+It will never be finished - help is welcome, but keep it simple.
 
 ## Requires
 > Python3 as of 2021-05
