@@ -1,3 +1,5 @@
 *pycache*
 venv
 config.py
+players.py
+*.org

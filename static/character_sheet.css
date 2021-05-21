@@ -25,6 +25,25 @@
       -moz-appearance: textfield;
     }
 
+    #logoff {
+      position: absolute;
+      left: 750px;
+      top: 50px;
+      border: solid;
+      border-radius: 7px;
+      border-color: #aa2222;
+      border-width: 1px;
+      padding: 4px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #aa2222;
+    }
+    #logoff:hover {
+      border-width: 3px;
+    }
+
     #container {
       position: absolute;
       top 0;
@@ -77,21 +96,38 @@
     }
 
     #basicskills1 {
-        left: 270px;
+        left: 235px;
         top: 443px;
         position: absolute;
         border: none;
     }
     #basicskills2 {
-        left: 535px;
+        left: 500px;
         top: 443px;
         position: absolute;
         border: none;
+    }
+    #advancedskills {
+        left: 615px;
+        top: 443px;
+        position: absolute;
     }
     input.skill {
         text-align: center;
         width: 21px;
         height: 24px;
+    }
+    input.skillname {
+        text-align: left;
+        width: 109px;
+        height: 24px;
+        border: 1px;
+    }
+    input.charname {
+        text-align: left;
+        width: 30px;
+        height: 24px;
+        border: 1px;
     }
 
     input#save_button {

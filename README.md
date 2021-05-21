@@ -22,8 +22,7 @@ It will never be finished - help is welcome, but keep it simple.
 `pip install -r requirements.txt`
 
 ### Cofigure server and players
-Set server address and port in app.py.
-Players and credentials are hard coded in the app.py :-)
+Copy players.py.example to players.py and edit the settings within.
 
 ### Start the app
 `python3 ./tub-control.py`

@@ -7,41 +7,42 @@
 </head>
 
 <div id="container">
-  <a href="{{url_for('logoff')}}">Log off</a>
+  <div id="logoff">
+    <a href="{{url_for('logoff')}}">Log off</a>
+  </div>
 
 <form action="{{url_for('handle_form', player=rpc.player)}}" method="post">
     <fieldset id="descriptfields">
-      <input style="width: 310px;" class="descript" type="text" name="d_name" id="d_name" value="{{desc.get('name')}}"/>
-      <input style="width: 140px;" class="descript" type="text" name="d_specie" id="d_specie" value="{{desc.get('specie')}}"/>
-      <input style="width: 150px;" class="descript" type="text" name="d_class" id="d_class" value="{{desc.get('class')}}"/>
+      <input style="width: 310px;" class="descript" type="text" name="d_name" id="d_name" value="{{rpc.description.get('name')}}"/>
+      <input style="width: 140px;" class="descript" type="text" name="d_specie" id="d_specie" value="{{rpc.description.get('specie')}}"/>
+      <input style="width: 150px;" class="descript" type="text" name="d_class" id="d_class" value="{{rpc.description.get('class')}}"/>
       <br/>
-      <input style="width: 300px;" class="descript" type="text" name="d_career" id="d_career" value="{{desc.get('career')}}"/>
-      <input style="width: 250px; margin-left:50px" class="descript" type="text" name="d_level" id="d_level" value="{{desc.get('level')}}"/>
+      <input style="width: 300px;" class="descript" type="text" name="d_career" id="d_career" value="{{rpc.description.get('career')}}"/>
+      <input style="width: 250px; margin-left:50px" class="descript" type="text" name="d_level" id="d_level" value="{{rpc.description.get('level')}}"/>
       <br/>
-      <input style="width: 500px;" class="descript" type="text" name="d_path" id="d_path" value="{{desc.get('path')}}"/>
-      <input style="width: 150px;" class="descript" type="text" name="d_status" id="d_status" value="{{desc.get('status')}}"/>
+      <input style="width: 500px;" class="descript" type="text" name="d_path" id="d_path" value="{{rpc.description.get('path')}}"/>
+      <input style="width: 150px;" class="descript" type="text" name="d_status" id="d_status" value="{{rpc.description.get('status')}}"/>
       <br/>
-      <input style="width: 150px;" class="descript" type="text" name="d_age" id="d_age" value="{{desc.get('age')}}"/>
-      <input style="width: 100px;" class="descript" type="text" name="d_height" id="d_height" value="{{desc.get('height')}}"/>
-      <input style="width: 120px;" class="descript" type="text" name="d_hair" id="d_hair" value="{{desc.get('hair')}}"/>
-      <input style="margin:0; width: 50px;" class="descript" type="text" name="d_eyes" id="d_eyes" value="{{desc.get('eyes')}}"/>
+      <input style="width: 150px;" class="descript" type="text" name="d_age" id="d_age" value="{{rpc.description.get('age')}}"/>
+      <input style="width: 100px;" class="descript" type="text" name="d_height" id="d_height" value="{{rpc.description.get('height')}}"/>
+      <input style="width: 120px;" class="descript" type="text" name="d_hair" id="d_hair" value="{{rpc.description.get('hair')}}"/>
+      <input style="margin:0; width: 50px;" class="descript" type="text" name="d_eyes" id="d_eyes" value="{{rpc.description.get('eyes')}}"/>
     </fieldset>
-  
   <fieldset id="charfields">
-    {% for item in characteristics %}
-      {% set outer_loop = loop %}
-        {% for key,val in item.items() %}
-            {% set name_ = key ~ '_' ~ outer_loop.index %}
-            {% if outer_loop.index == 3 %}
+    {% for row in ['initial', 'advance','sum'] %}
+        {% for char in rpc.characteristics %}
+            {% set name_ = char.name ~ '_' ~ row %}
+            {% if row == 'sum' %}
                 {% set readonly = 'readonly' %}
             {% endif %}
             <input class="chars" type="text" name="{{name_}}" pattern="[0-9]+"
                                              id="{{name_}}"
-                                             value="{{val}}" {{readonly}}>
+                                             value="{{char.get(row)}}" {{readonly}}>
         {% endfor %}
       <br/>
     {% endfor %}
   </fieldset>
+
 
   <fieldset id="fatefields">
       <input class="fate" type="text" name="i_fate" id="i_fate" value="{{rpc.fate}}">
@@ -50,21 +51,49 @@
   </fieldset>
 
   <fieldset id="basicskills1">
-    {% for skill in basic_skills[0:13] %}
-    {% set name_ = 'adv_' ~ skill.valid_name %}
-    <input class="skill" type="text" name="{{name_}}"
-                                     id="{{name_}}"
-                                     value="{{skill.adv}}">
-    {% set name_ = 'val_' ~ skill.valid_name %}
-    <input class="skill" type="text" name="{{name_}}"
-                                     id="{{name_}}"
-                                     value="{{skill.skill_value}}" readonly>
-    <br/>
+    {% for skill in rpc.skills.basic(0,13) %}
+      {% for row in ['initial', 'advance','sum'] %}
+        {% set name_ = skill.valid_name ~ '_' ~ row %}
+        {% if row == 'sum' or row == 'initial' %}
+            {% set readonly = 'readonly' %}
+        {% endif %}
+        <input class="skill" type="text" name="{{name_}}"
+                                         id="{{name_}}"
+                                         value="{{skill.get(row)}}"
+                                         {{readonly}}>
+      {% endfor %}
+      <br/>
     {% endfor %}
   </fieldset>
 
   <fieldset id="basicskills2">
-    {% for skill in basic_skills[13:] %}
+    {% for skill in rpc.skills.basic(13,26) %}
+      {% for row in ['initial', 'advance','sum'] %}
+        {% set name_ = skill.valid_name ~ '_' ~ row %}
+        {% if row == 'sum' or row == 'initial' %}
+            {% set readonly = 'readonly' %}
+        {% endif %}
+        <input class="skill" type="text" name="{{name_}}"
+                                         id="{{name_}}"
+                                         value="{{skill.get(row)}}"
+                                         {{readonly}}>
+      {% endfor %}
+
+    <br/>
+    {% endfor %}
+  </fieldset>
+
+  <fieldset id="advancedskills">
+    {% for skill in rpc.skills.added() %}
+    <input class="skillname" type="text" name="name_{{skill.valid_name}}"
+                                     id="name_{{skill.valid_name}}"
+                                     value="-">
+    <input class="charname" type="text" name="charname_{{skill.valid_name}}"
+                                     id="charname_{{skill.valid_name}}"
+                                     value="-">
+    <input class="skill" type="text" name="name_{{skill.valid_name}}"
+                                     id="name_{{skill.valid_name}}"
+                                     value="0">
     <input class="skill" type="text" name="adv_{{skill.valid_name}}"
                                      id="adv_{{skill.valid_name}}"
                                      value="{{skill.adv}}">

@@ -97,13 +97,17 @@ def show_sheet(player): #,user):
         load_rpc(player, rpcs)
 
     rpc = rpcs[player]
-    rpc.update_skills()
+    
+    ## rpc.characteristics.get('dex').set('initial', 42)
+    ## rpc.characteristics.get('dex').set('advance', 2)
+    ## rpc.characteristics.get('Wp').set('advance', 5)
+    ## rpc.skills.get('art').set('advance', 5)
+    ## rpc.skills.get('melee basic').set('advance', 5)
+    ## rpc.refresh_skills()
+    ## for skill in rpc.skills.added():
+    ##     print(skill)
 
-    out  = render_template('wfrp_sheet.html',
-                            desc=rpc.description,
-                            characteristics = rpc.characteristics.all(),
-                            basic_skills = rpc.skills.basic_skills,
-                            rpc = rpc)
+    out  = render_template('wfrp_sheet.html', rpc = rpc)
     return(out)
 
 @app.route('/handle_form/<string:player>', methods=['POST'])
