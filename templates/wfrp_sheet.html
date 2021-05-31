@@ -52,15 +52,14 @@
 
   <fieldset id="basicskills1">
     {% for skill in rpc.skills.basic(0,13) %}
-      {% for row in ['initial', 'advance','sum'] %}
-        {% set name_ = skill.valid_name ~ '_' ~ row %}
-        {% if row == 'sum' or row == 'initial' %}
+      {% for key in ['initial', 'advance','sum'] %}
+        {% set name_ = skill.valid_name ~ '_' ~ key %}
+        {% if key == 'sum' or key == 'initial' %}
             {% set readonly = 'readonly' %}
         {% endif %}
         <input class="skill" type="text" name="{{name_}}"
                                          id="{{name_}}"
-                                         value="{{skill.get(row)}}"
-                                         {{readonly}}>
+                                         value="{{skill.get(key)}}" {{readonly}}>
       {% endfor %}
       <br/>
     {% endfor %}
@@ -68,15 +67,14 @@
 
   <fieldset id="basicskills2">
     {% for skill in rpc.skills.basic(13,26) %}
-      {% for row in ['initial', 'advance','sum'] %}
-        {% set name_ = skill.valid_name ~ '_' ~ row %}
-        {% if row == 'sum' or row == 'initial' %}
+      {% for key in ['initial', 'advance','sum'] %}
+        {% set name_ = skill.valid_name ~ '_' ~ key %}
+        {% if key == 'sum' or key == 'initial' %}
             {% set readonly = 'readonly' %}
         {% endif %}
         <input class="skill" type="text" name="{{name_}}"
                                          id="{{name_}}"
-                                         value="{{skill.get(row)}}"
-                                         {{readonly}}>
+                                         value="{{skill.get(key)}}" {{readonly}}>
       {% endfor %}
 
     <br/>
@@ -85,23 +83,41 @@
 
   <fieldset id="advancedskills">
     {% for skill in rpc.skills.added() %}
-    <input class="skillname" type="text" name="name_{{skill.valid_name}}"
-                                     id="name_{{skill.valid_name}}"
-                                     value="-">
-    <input class="charname" type="text" name="charname_{{skill.valid_name}}"
-                                     id="charname_{{skill.valid_name}}"
-                                     value="-">
-    <input class="skill" type="text" name="name_{{skill.valid_name}}"
-                                     id="name_{{skill.valid_name}}"
-                                     value="0">
-    <input class="skill" type="text" name="adv_{{skill.valid_name}}"
-                                     id="adv_{{skill.valid_name}}"
-                                     value="{{skill.adv}}">
-    <input class="skill" type="text" name="val_{{skill.valid_name}}"
-                                     id="val_{{skill.valid_name}}"
-                                     value="{{skill.skill_value}}" readonly>
+    {% set name_ = 'added_skill_' ~ loop.index0 %}
+      <input class="skillname" type="text" name="name_{{name_}}"
+                                       id="name_{{name_}}"
+                                       value="{{skill.name}}">
+      <input class="charname" type="text" name="char_{{name_}}"
+                                       id="char_{{name_}}"
+                                       value="{{skill.char.name}}">
+      {% for key in ['initial', 'advance','sum'] %}
+        {% set name_ = name_ ~ '_' ~ key %}
+        {% if key == 'sum' or key == 'initial' %}
+            {% set readonly = 'readonly' %}
+        {% endif %}
+        <input class="skill" type="text" name="{{name_}}"
+                                         id="{{name_}}"
+                                         value="{{skill.get(key)}}" {{readonly}}>
+      {% endfor %}
     <br/>
     {% endfor %}
+  </fieldset>
+
+  <fieldset id="talents">
+    {% for talent in rpc.talents %}
+    {% set name_ = 'talent_' ~ loop.index0 %}
+      <input class="talentname" type="text" name="name_{{name_}}"
+                                       id="name_{{name_}}"
+                                       value="{{talent.name}}">
+      <input class="talenttimes" type="text" name="taken_{{name_}}"
+                                       id="taken_{{name_}}"
+                                       value="{{talent.times_taken}}">
+      <input class="talentdescription" type="text" name="description_{{name_}}"
+                                       id="description_{{name_}}"
+                                       value="{{talent.description}}">
+    <br/>
+    {% endfor %}
+
   </fieldset>
 
   <input id="save_button" type="submit" value="Save"/>

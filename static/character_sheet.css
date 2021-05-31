@@ -112,6 +112,13 @@
         top: 443px;
         position: absolute;
     }
+    #talents {
+        left: 80px;
+        top: 819px;
+        position: absolute;
+        border: solid;
+    }
+
     input.skill {
         text-align: center;
         width: 21px;
@@ -126,6 +133,24 @@
     input.charname {
         text-align: left;
         width: 30px;
+        height: 24px;
+        border: 1px;
+    }
+    input.talentname {
+        text-align: left;
+        width: 130px;
+        height: 24px;
+        border: 1px;
+    }
+    input.talenttimes {
+        text-align: center;
+        width: 31px;
+        height: 24px;
+    }
+
+    input.talentdescription {
+        text-align: left;
+        width: 199px;
         height: 24px;
         border: 1px;
     }
